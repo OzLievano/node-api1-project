@@ -9,7 +9,7 @@ server.get("/api/users", async(req,res)=>{
     try{
         res.status(200).json(users);
     } catch(err) {
-        res.status(500).json({error:err.message});
+        res.status(500).json({error:"The users information could not be retrieved."});
     }
 })
 
@@ -20,7 +20,7 @@ server.get("/api/users/:id", async(req,res)=>{
     try{
         res.status(200).json(user);
     } catch(err) {
-        res.status(500).json({error:err.message});
+        res.status(404).json({error:"The user with the specified ID does not exist." });
     }
 })
 
@@ -30,9 +30,9 @@ server.post("/api/users", async (req, res) => {
     try {
       const newlyCreatedUser = await User.create(user);
       console.log(newlyCreatedUser);
-      res.status(200).json(newlyCreatedUser);
+      res.status(201).json(newlyCreatedUser);
     } catch (err) {
-      res.status(500).json({ error: err.message });
+      res.status(400).json({ error: "Please provide name and bio for the user."  });
     }
   });
 
@@ -43,10 +43,10 @@ server.post("/api/users", async (req, res) => {
         if (user) {
           res.status(200).json(user);
         } else {
-          res.status(404).json({ message: "unknown ID" });
+          res.status(404).json({ message: "The user with the specified ID does not exist." });
         }
       } catch (err) {
-        res.status(500).json({ error: err.message });
+        res.status(500).json({ error: "The user could not be removed" });
       }
   })
 
@@ -54,18 +54,18 @@ server.post("/api/users", async (req, res) => {
     const {id} = req.params;
     const changes = req.body;
 
-    if(!user.name || !dpg.weight){
-        res.status(400).json({message:'must include weight and name'})
+    if(!user.name || !user.bio){
+        res.status(400).json({message:"Please provide name and bio for the user." })
     } else {
         try{
             const updatedUser = await user.update(id,changes);
             if(updatedUser){
                 res.status(200).json(updateUser);
             }else{
-                res.status(404).json({message:"unkown id"});
+                res.status(404).json({message:"unknown id"});
             }
         }catch(err){
-            res.status(500).json({error:err.message})
+            res.status(500).json({error:"The user information could not be modified."})
         }
     }
 })
