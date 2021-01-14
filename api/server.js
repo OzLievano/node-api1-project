@@ -1,4 +1,4 @@
-const User = require("./userCalls.js");
+const User = require("./userData.js");
 const express = require("express");
 const server = express();
 server.use(express.json());
