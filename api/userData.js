@@ -1,19 +1,25 @@
 const shortid = require('shortid');
 
-let users = [{
-    id:shortid,
+let users = [
+    {
+    id:shortid.generate(),
     name:"ozzy",
     bio:"Not Ozzy Osbourne, Ozzy Lievano"
-}]
+},
+    {id:shortid.generate(),
+    name:"Lola",
+    bio:"its lola"
+}
+]
 
 module.exports = {
     findAll(){
-        return Promise.resolve(dogs)
+        return Promise.resolve(users)
     },
 
     findById(id){
         const user = users.find(u => u.id === id)
-        return Promise.resolve
+        return Promise.resolve(user)
     },
 
     create({name, bio}){

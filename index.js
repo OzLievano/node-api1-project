@@ -1,8 +1,8 @@
 //import server
-const server = require('./api/server.js');
+const server = require('./api/server');
 
 //create port to listen
-const PORT = 5000;
+const PORT = 4000;
 
 //get the app listening
 
